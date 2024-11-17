@@ -6,13 +6,10 @@ using namespace std;
 // Estructura auxiliar para manejar los nodos en la fila de la búsqueda
 struct NodoFila {
     int actual;         // Índice del nodo actual
-    int MNPrestante;    // Número máximo de pasos restantes
+    int MNPrestante;    // Número máximo de pasos restantes (MNP)
 };
 
 // Método para agregar una conexión entre dos puertos
-/* Parámetros:
-    - puerto1: Nombre del primer puerto
-    - puerto2: Nombre del segundo puerto */
 void RedPuertos::agregarConexion(const string &puerto1, const string &puerto2) {
     // Obtiene los índices de los puertos, añadiéndolos si no existen
     int indice1 = getIndicePuerto(puerto1);
@@ -23,12 +20,8 @@ void RedPuertos::agregarConexion(const string &puerto1, const string &puerto2) {
     grafo[indice2].push_back(indice1);
 }
 
-// Método para obtener el índice de un puerto en la lista de puertos
+// Método para obtener el índice de un puerto en la lista de puertos.
 // Si el puerto no existe, lo agrega a la lista.
-/* Parámetro:
-    - puerto: Nombre del puerto a buscar
-   Retorna:
-    - Índice del puerto en la lista */
 int RedPuertos::getIndicePuerto(const string &puerto) {
     // Busca el puerto en la lista existente
     for (size_t i = 0; i < puertos.size(); ++i) {
@@ -41,13 +34,7 @@ int RedPuertos::getIndicePuerto(const string &puerto) {
     return puertos.size() - 1;
 }
 
-// Método para contar los puertos que no son alcanzables desde un puerto inicial
-// dentro de un número máximo de pasos (MNP)
-/* Parámetros:
-    - iniciopuerto: Nombre del puerto inicial
-    - MNP: Número máximo de pasos permitidos
-   Retorna:
-    - Número de puertos inalcanzables */
+// Método para contar los puertos que no son alcanzables desde un puerto inicial dentro de un número máximo de pasos (MNP)
 int RedPuertos::contarPuertosInalcanzables(const string &iniciopuerto, int MNP) {
     // Obtiene el índice del puerto inicial
     int startindice = getIndicePuerto(iniciopuerto);
@@ -88,4 +75,12 @@ int RedPuertos::contarPuertosInalcanzables(const string &iniciopuerto, int MNP) 
 
     // Calcula los puertos inalcanzables
     return puertos.size() - reachablepuertos;
+}
+
+// Método para verificar si un puerto se encuentra en la red:
+bool RedPuertos::puertoExiste(const string &puerto) {
+    for (const string &p : puertos) {
+        if (p == puerto) return true; // Retorna true si encuentra el puerto
+    }
+    return false; // Si no lo encuentra, retorna false
 }

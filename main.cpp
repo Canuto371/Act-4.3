@@ -1,13 +1,15 @@
- /* Programa principal que lee conexiones entre puertos desde un archivo,
-    construye una red de puertos y realiza consultas sobre la cantidad
-    de puertos inalcanzables desde un puerto inicial dado un número máximo de pasos. */
- // Autor: [Nombre del autor]
- // Fecha: 13/11/2024
+// Act 4.3 - Actividad Integral de Grafos (Evidencia Competencia)
+// Elizabeth Jauregui Zarate (A01253381)
+
+/* Programa principal que lee conexiones entre puertos desde un archivo,
+   construye una red de puertos y realiza consultas sobre la cantidad
+   de puertos inalcanzables desde un puerto inicial dado un número máximo de pasos. 
+*/
 
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "grafo.h"
+#include "grafo.cpp"
 
 using namespace std;
 
@@ -20,7 +22,6 @@ int main() {
         return 1;
     }
 
-    // Lectura del número de conexiones
     int numeroConexiones; 
     archivoEntrada >> numeroConexiones;
 
@@ -43,6 +44,13 @@ int main() {
         string puertoInicial;
         int maximoPasos;
         archivoEntrada >> puertoInicial >> maximoPasos;
+
+        // Verifica si el puerto inicial existe en la lista
+        if (!red.puertoExiste(puertoInicial)) {
+            // Mensaje de error si no se encuentra el puerto
+            cerr << "Error: El puerto " << puertoInicial << " no se encuentra en la red." << endl;
+            continue; // Pasa al siguiente caso
+        }
 
         // Cálculo de los puertos inalcanzables desde el puerto inicial
         int puertosInalcanzables = red.contarPuertosInalcanzables(puertoInicial, maximoPasos);
